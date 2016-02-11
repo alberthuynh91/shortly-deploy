@@ -126,7 +126,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['mochaTest']);
 
-  grunt.registerTask('build', ['npmInstall', 'eslint', 'concat', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['shell:npmInstall', 'eslint', 'concat', 'uglify', 'cssmin']);
 
 
   grunt.registerTask('deploy', function(n) {
