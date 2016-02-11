@@ -9,6 +9,16 @@ module.exports = function(grunt) {
       client: {
         src: ['public/client/**/*.js'],
         dest: 'public/dist/client.js'
+      }, 
+      lib: {
+        files: {
+          'public/dist/lib.js': [
+            'public/lib/jquery.js',
+            'public/lib/underscore.js',
+            'public/lib/handlebars.js',
+            'public/lib/backbone.js'
+          ]
+        }
       }
     },
 
@@ -39,12 +49,9 @@ module.exports = function(grunt) {
         }
       },
       lib: {
-        files: [{
-            expand: true,
-            cwd: 'public/lib',
-            src: '*.js',
-            dest: 'public/dist/lib'
-        }]
+        files: {
+          'public/dist/lib.min.js': ['public/dist/lib.js']
+        }
       }
     },
 
