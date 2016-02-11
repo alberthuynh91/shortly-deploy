@@ -90,11 +90,11 @@ module.exports = function(grunt) {
       }
     },
 
-    shell: {
-      npmInstall: {
-        command: 'npm install'
-      }
-    },
+    // shell: {
+    //   npmInstall: {
+    //     command: 'npm install'
+    //   }
+    // },
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -104,7 +104,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-processhtml');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-npm-install');
+  // grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
 
   grunt.registerTask('server-dev', function (target) {
@@ -126,7 +127,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['mochaTest']);
 
-  grunt.registerTask('build', ['shell:npmInstall', 'eslint', 'concat', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['npm-install', 'eslint', 'concat', 'uglify', 'cssmin']);
 
   grunt.registerTask('fixpaths', ['processhtml']);
 
