@@ -27,6 +27,8 @@ urlSchema.pre('save', function(next) {
   var shasum = crypto.createHash('sha1');
   shasum.update(url.url);
   url.code = shasum.digest('hex').slice(0, 5);
+
+  next();
 });
 
 module.exports.Url = mongoose.model('Url', urlSchema);
@@ -42,7 +44,7 @@ userSchema.pre('save', function(next) {
   var user = this;
 
   // generate a salt
-  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+  bcrypt.genSalt(10, function(err, salt) {
     if (err) return next(err);
 
     // hash the password using our new salt
