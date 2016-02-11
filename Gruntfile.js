@@ -64,6 +64,15 @@ module.exports = function(grunt) {
       }
     },
 
+    processhtml: {
+      ejs: {
+        files: {
+          'views/index.ejs': ['views/index.ejs'],
+          'views/layout.ejs': ['views/layout.ejs']
+        }
+      }
+    },
+
     watch: {
       scripts: {
         files: [
@@ -82,8 +91,8 @@ module.exports = function(grunt) {
     },
 
     shell: {
-      pushprod: {
-        command: 'git push live master'
+      npmInstall: {
+        command: 'npm install'
       }
     },
   });
@@ -92,6 +101,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-processhtml');
   grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
@@ -116,11 +126,12 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['mochaTest']);
 
-  grunt.registerTask('build', ['eslint', 'concat', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['npmInstall', 'eslint', 'concat', 'uglify', 'cssmin']);
+
 
   grunt.registerTask('deploy', function(n) {
     if (grunt.option('prod')) {
-      grunt.task.run(['shell:pushprod'])
+      grunt.task.run([ 'build', 'processhtml' ]);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
