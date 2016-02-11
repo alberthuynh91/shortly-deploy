@@ -82,7 +82,8 @@ module.exports = function(grunt) {
     },
 
     shell: {
-      prodServer: {
+      pushprod: {
+        command: 'git push live master'
       }
     },
   });
@@ -109,14 +110,6 @@ module.exports = function(grunt) {
     grunt.task.run([ 'watch' ]);
   });
 
-
-  grunt.registerTask('upload', function(n) {
-    if (grunt.option('prod')) {
-      // add your production server task here
-    }
-    grunt.task.run([ 'server-dev' ]);
-  });
-
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
@@ -125,17 +118,13 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['eslint', 'concat', 'uglify', 'cssmin']);
 
-  grunt.registerTask('upload', function(n) {
+  grunt.registerTask('deploy', function(n) {
     if (grunt.option('prod')) {
-      // add your production server task here
+      grunt.task.run(['shell:pushprod'])
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
-
-  grunt.registerTask('deploy', [
-    // add your deploy tasks here
-  ]);
 
 
 };
