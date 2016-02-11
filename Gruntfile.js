@@ -128,10 +128,11 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['shell:npmInstall', 'eslint', 'concat', 'uglify', 'cssmin']);
 
+  grunt.registerTask('fixpaths', ['processhtml']);
 
   grunt.registerTask('deploy', function(n) {
     if (grunt.option('prod')) {
-      grunt.task.run([ 'build', 'processhtml' ]);
+      grunt.task.run([ 'build', 'fixpaths']);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
